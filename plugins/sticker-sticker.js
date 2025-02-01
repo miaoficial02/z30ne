@@ -16,7 +16,7 @@ if (!img) return conn.reply(m.chat, `⚠️ *_La conversión ha fallado, intenta
 let out
 try {
 stiker = await sticker(img, false, global.packsticker, `━━━━━━━━━♾
-\вσт мαƒια ʝαρσηєѕα\n${m.pushName}\n⇝ ${moment.tz('America/Los_Angeles').format('DD/MM/YY')}\n⇝ ${moment.tz('America/Los_Angeles').format('HH:mm:ss')} \n.\n\nѕτιϲκєя ϐγ: Starting
+\🌸𝙨𝙪𝙢𝙞 𝙨𝙖𝙠𝙪𝙧𝙖𝙯𝙖𝙬𝙖🌸\n${m.pushName}\n⇝ ${moment.tz('America/Los_Angeles').format('DD/MM/YY')}\n⇝ ${moment.tz('America/Los_Angeles').format('HH:mm:ss')} \n.\n\nѕτιϲκєя ϐγ: Starting
 .⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.`)
 } catch (e) {
 console.error(e)
@@ -29,7 +29,7 @@ if (typeof out !== 'string') out = await uploadImage(img)
 stiker = await sticker(false, out, global.packsticker, `━━━━━━━━♾\вσт мαƒια\n${m.pushName}\n⇝ ${moment.tz('America/Los_Angeles').format('DD/MM/YY')}\n⇝ ${moment.tz('America/Los_Angeles').format('HH:mm:ss')} \n°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°\n\nѕτιϲκєя ϐγ: Starting`)
 }}
 } else if (args[0]) {
-if (isUrl(args[0])) stiker = await sticker(false, args[0], global.packsticker, `━━━━━━━━♾\𖤓⏤͟͟͞͞вσт мαƒια 𓆩✝︎𓆪 ʝαρσηєѕα⏤͟͟͞͞𖤓\n${m.pushName}\n⇝ ${moment.tz('America/Los_Angeles').format('DD/MM/YY')}\n⇝ ${moment.tz('America/Los_Angeles').format('HH:mm:ss')} \n°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°\n\nѕτιϲκєя ϐγ: Starting`)
+if (isUrl(args[0])) stiker = await sticker(false, args[0], global.packsticker, `━━━━━━━━♾\🌸𝙨𝙪𝙢𝙞 𝙨𝙖𝙠𝙪𝙧𝙖𝙯𝙖𝙬𝙖🌸\n${m.pushName}\n⇝ ${moment.tz('America/Los_Angeles').format('DD/MM/YY')}\n⇝ ${moment.tz('America/Los_Angeles').format('HH:mm:ss')} \n°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°\n\nѕτιϲκєя ϐγ: Starting`)
 
 else return m.reply(`💫 El url es incorrecto`)
 
