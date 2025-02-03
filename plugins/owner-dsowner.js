@@ -11,8 +11,8 @@ return conn.reply(m.chat, '☯︎ *Utiliza este comando directamente en el núme
 await conn.reply(m.chat, '🂱 *Iniciando proceso de eliminación de todos los archivos de sesión, excepto el archivo creds.json...*', m, rcanal, )
 m.react(rwait)
 
-let sessionPath = './session-activas
-try {
+let sessionPath = './session-activas'
+try{
 
 if (!existsSync(sessionPath)) {
 return await conn.reply(m.chat, '✈︎ *La carpeta está vacía*', m, rcanal, )
