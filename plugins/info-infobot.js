@@ -50,7 +50,7 @@ const handler = async (m, { conn, usedPrefix }) => {
   const Message = {
     document: { url: `https://chat.whatsapp.com/H5bw4MJucS1BBHnZ9wv3vI` },
     mimetype: `application/${document}`,
-    fileName: `「 𝐇𝐮ⷡ𝐓ⷪ𝐚ⷮ𝐨-𝐌𝐃󠁂󠀧󠁂🈀 」`,
+    fileName: `「 sumi MD🈀 」`,
     fileLength: 99999999999999,
     pageCount: 200,
     contextInfo: {
