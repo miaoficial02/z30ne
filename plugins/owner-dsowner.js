@@ -15,7 +15,7 @@ let sessionPath = './session-activas'
 try{
 
 if (!existsSync(sessionPath)) {
-return await conn.reply(m.chat, '✈︎ *La carpeta ya fue limpiada*', m, rcanal, )
+return await conn.reply(m.chat, '💻 *La carpeta ya fue limpiada*', m, rcanal, )
 }
 let files = await fs.readdir(sessionPath)
 let filesDeleted = 0
@@ -26,7 +26,7 @@ filesDeleted++;
 }
 }
 if (filesDeleted === 0) {
-await conn.reply(m.chat, '✈︎ *La carpeta esta vacía*',  m, rcanal, )
+await conn.reply(m.chat, '💻 *La carpeta ya fue limpiada*',  m, rcanal, )
 } else {
 m.react(done)
 await conn.reply(m.chat, `⚠︎ *Se eliminaron ${filesDeleted} archivos de sesión, excepto el archivo creds.json*`,  m, rcanal, )
