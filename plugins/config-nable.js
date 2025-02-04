@@ -273,14 +273,7 @@ throw false
 chat.antitoxic = isEnable
 break
 
-case 'audios':
-if (m.isGroup) {
-if (!(isAdmin || isOwner)) {
-global.dfail('admin', m, conn)
-throw false
-}}
-chat.audios = isEnable          
-break
+
 
 case 'antiver': case 'modover': case 'modoobservar': case 'modobservar': case 'antiviewonce':
 if (m.isGroup) {
