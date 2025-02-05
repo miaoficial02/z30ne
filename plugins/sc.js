@@ -1,59 +1,67 @@
-import { promises } from 'fs'
-import { join } from 'path'
-import axios from 'axios'
+//Codigo creado por ivan y José elver 
+import fetch from 'node-fetch';
 
-let handler = async function (m, { conn, __dirname }) {
-  const githubRepoURL = 'https://github.com/GlobalTechInfo/ULTRA-MD'
+let handler = async (m, { conn, usedPrefix, command }) => {
+    const githubRepoURL = 'https://github.com/leoneloficial/sumi-zakurazawa';
 
-  try {
-    const [, username, repoName] = githubRepoURL.match(/github\.com\/([^/]+)\/([^/]+)/)
+    try {
+        const [, username, repoName] = githubRepoURL.match(/github\.com\/([^/]+)\/([^/]+)/);
+        const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
 
-    const response = await axios.get(`https://api.github.com/repos/${username}/${repoName}`)
+        if (!response.ok) {
+            throw new Error(`La solicitud a la API de GitHub falló con el estado ${response.status}`);
+        }
 
-    if (response.status === 200) {
-      const repoData = response.data
+        const repoData = await response.json();
+        let Codes = '`📂  I N F O R M A C I Ó N  D E  R E P O S I T O R I O`\n\n';
+        Codes += `    ✩  *NOMBRE DEL BOT* : ${repoData.name}\n`;
+        Codes += `    ✩  *NOMBRE DEL PROPIETARIO* : ${repoData.owner.login}\n`;
+        Codes += `    ✩  *ESTRELLAS* : ${repoData.stargazers_count}\n`;
+        Codes += `    ✩  *FORKS* : ${repoData.forks_count}\n`;
+        Codes += `    ✩  *ENLACE DE GITHUB* : ${repoData.html_url}\n`;
+        Codes += `    ✩  *DESCRIPCIÓN* : ${repoData.description || 'Sin descripción disponible'}\n\n`;
+        Codes += `*¡No olvides darle una estrella y hacer fork al repositorio!*\n\n`;
+        Codes += `> *Código creado por ivan y terminado por José Elver*`;
 
-      // Format the repository information with emojis
-      const formattedInfo = `
-📂 Nombre: ${wm}
-👤 Owner: 👑 𝕷͢𝖊𝖔፝֟፝֟፝֟፝֟፝֟፝֟𝖓𝖊𝖑 👑
-🚩 Numero: +34 610246115
-🌐 Chanel: https://whatsapp.com/channel/0029Vagdmfv1SWt5nfdR4z3w`.trim()
+        await conn.sendMessage(m.chat, {
+            image: { url: 'https://files.catbox.moe/u20936.jpg' },
+            caption: Codes,
+            contextInfo: { 
+                mentionedJid: [m.sender],
+                forwardingScore: 999,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                    newsletterJid: '120363276986902836@newsletter',
+                    newsletterName: 'sumi-zakurazawa',
+                    serverMessageId: 143
+                }
+            }
+        }, { quoted: m });
 
-      // Send the formatted information as a message
-      await conn.relayMessage(
-        m.chat,
-        {
-          requestPaymentMessage: {
-            currencyCodeIso4217: 'SIX',
-            amount1000: 66666,
-            requestFrom: m.sender,
-            noteMessage: {
-              extendedTextMessage: {
-                text: formattedInfo,
-                contextInfo: {
-                  externalAdReply: {
-                    showAdAttribution: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-        {}
-      )
-    } else {
-      // Handle the case where the API request fails
-      await conn.reply(m.chat, 'Unable to fetch repository information.', m)
+        await conn.sendMessage(m.chat, {
+            audio: { url: 'https://github.com/JawadYTX/KHAN-DATA/raw/refs/heads/main/autovoice/repo.m4a' },
+            mimetype: 'audio/mp4',
+            ptt: true,
+            contextInfo: { 
+                mentionedJid: [m.sender],
+                forwardingScore: 999,
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: {
+                    newsletterJid: '120363276986902836@newsletter',
+                    newsletterName: 'sumi-zakurazawa',
+                    serverMessageId: 143
+                }
+            }
+        }, { quoted: m });
+
+    } catch (error) {
+        await conn.reply(m.chat, "Lo siento, ocurrió un error al obtener la información del repositorio. Por favor, intenta de nuevo más tarde.", m);
     }
-  } catch (error) {
-    console.error(error)
-    await conn.reply(m.chat, 'An error occurred while fetching repository information.', m)
-  }
 }
 
-handler.help = ['script']
-handler.tags = ['main']
-handler.command = ['sc']
+handler.tags = ['info'];
+handler.help = ['repo', 'sc', 'script', 'info'];
+handler.command = ['repo', 'sc', 'script', 'info'];
+handler.register = true;
 
-export default handler
+export default handler;
