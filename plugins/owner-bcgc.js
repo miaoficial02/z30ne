@@ -21,7 +21,7 @@ const handler = async (m, {conn, text} ) => {
   }
   m.reply(`[💖] 𝗣𝗲𝗿𝗳𝗲𝗰𝘁𝗼, 𝗺𝗲𝗻𝘀𝗮𝗷𝗲 𝗲𝗻𝘃𝗶𝗮𝗱𝗼 𝗮  ${chats.length} 𝗖𝗵𝗮𝘁𝘀\n\n𝐸𝑠𝑝𝑜𝑠𝑖𝑏𝑙𝑒 𝑞𝑢𝑒 𝑒𝑙 𝑢𝑠𝑜 𝑑𝑒 𝑒𝑠𝑡𝑒 𝑐𝑜𝑚𝑎𝑛𝑑𝑜 𝑒𝑛𝑣𝑖𝑒 𝑎 𝐿𝑜𝑏𝑜 𝑎 𝑠𝑜𝑝𝑜𝑟𝑡𝑒.`);
 };
-handler.help = ['broadcastchats', 'bcchats'].map((v) => v + ' <teks>');
+handler.help = ['bcgc', 'bcchats'].map((v) => v + ' <teks>');
 handler.tags = ['owner'];
 handler.command = /^(broadcastchats?|bcc(hats?)?)$/i;
 handler.rowner = true;
