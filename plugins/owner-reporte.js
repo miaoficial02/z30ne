@@ -3,13 +3,20 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (text.length < 10) return conn.reply(m.chat, '⚠️ *Especifique bien el error, mínimo 10 caracteres.*', m)
     let perfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://qu.ax/QGAVS.jpg')
     if (text.length > 1000) return conn.reply(m.chat, '⚠️ *Máximo 1000 caracteres para enviar el error.*', m)
-    const teks = `*❌️ \`R E P O R T E\` ❌️*
+    const teks = `*❌️ \`Reportes de errores\` ❌️*
 
 ☁️ Número:
 • Wa.me/${m.sender.split`@`[0]}
 
+🍓 Bot:
+• *Summi sakurazawa*
+
 👤 Usuario: 
 • ${m.pushName || 'Anónimo'}
+
+💻 Owners support:
+• wa.me/50558124470
+• wa.me/584164137403
 
 💬 Mensaje:
 • ${text}`
