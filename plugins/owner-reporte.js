@@ -37,7 +37,7 @@ showAdAttribution: false,
 renderLargerThumbnail: false
 }}}, { quoted: null })
 
-    m.reply('❤️‍🔥 *El reporte se envío a mis desarrolladores, cualquier informe falso puede ocasionar un baneo temporal.*')
+    m.reply('> ❤️‍🔥 *El reporte se envío a mis desarrolladores.*')
 }
 handler.help = ['reportar']
 handler.tags = ['info']
