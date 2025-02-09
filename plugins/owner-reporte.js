@@ -5,10 +5,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (text.length > 1000) return conn.reply(m.chat, '⚠️ *Máximo 1000 caracteres para enviar el error.*', m)
     const teks = `*✖ \`Reportes de errores\` ✖*
 
-☁️ Número:
+☁️ Número de usuario:
 • Wa.me/${m.sender.split`@`[0]}
 
-🍓 Bot:
+🍓 Numero bot:
 • *Summi sakurazawa*
 
 👤 Usuario: 
@@ -37,7 +37,7 @@ showAdAttribution: false,
 renderLargerThumbnail: false
 }}}, { quoted: null })
 
-    m.reply('⚠️ *El reporte se envío a mi creador, cualquier informe falso puede ocasionar baneo.*')
+    m.reply('❤️‍🔥 *El reporte se envío a mis desarrolladores, cualquier informe falso puede ocasionar un baneo temporal.*')
 }
 handler.help = ['reportar']
 handler.tags = ['info']
