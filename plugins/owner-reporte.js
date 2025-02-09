@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 ☁️ Número de usuario:
 • Wa.me/${m.sender.split`@`[0]}
 
-🍓 Numero bot:
+🍓 Nombre bot:
 • *Summi sakurazawa*
 
 👤 Usuario: 
