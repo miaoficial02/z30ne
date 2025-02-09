@@ -15,8 +15,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 • ${m.pushName || 'Anónimo'}
 
 💻 Owners support:
-• wa.me/50558124470
-• wa.me/584164137403
+• > leonelOFC
+• > Support zaphkiel
 
 💬 Mensaje:
 • ${text}`
