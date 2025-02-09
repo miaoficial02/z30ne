@@ -15,6 +15,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 • ${text}`
   await conn.reply('573012482597@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, m, { mentions: conn.parseMention(teks) })
 
+await conn.reply('50558124470@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, m, { mentions: conn.parseMention(teks) })
+
   await conn.reply(global.owner[0][0] + '@s.whatsapp.net', m.quoted ? teks + m.quoted.text : teks, m, { mentions: conn.parseMention(teks) })
 
 await conn.sendMessage(global.idchannel, { text: m.quoted ? teks + m.quoted.text : teks, contextInfo: {
