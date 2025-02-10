@@ -147,7 +147,7 @@ await conn.sendMessage(m.chat, { video: { url: n2 }, fileName: `${n}.mp4`, mimet
 } catch (E3) {
 //console.log('Error 3 ' + E3)   
 }}}}}}}}}
-handler.help = ['ytmp4', 'ytmp3'];
+handler.help = ['ytmp4',];
 handler.tags = ['downloader'];
 handler.command = /^ytmp3|ytmp4|fgmp4|audio|fgmp3|dlmp3?$/i
 export default handler
