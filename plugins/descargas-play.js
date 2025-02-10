@@ -28,12 +28,26 @@ const handler = async (m, { conn, text, command }) => {
 
     const infoMessage = `🎬 *${title}*\n📏 Duración: *${timestamp || "00:00"}*\n👀 Vistas: *${vistas}*\n📺 Canal: *${author?.name || "Desconocido"}*\n📆 Publicado: *${ago || "Desconocido"}*\n🔗 [Ver en YouTube](${url})`;
 
-    console.log("📩 Enviando mensaje...");
-    await conn.sendMessage(m.chat, { 
-      text: infoMessage
-    }, { quoted: m });
+    console.log("📩 Enviando mensaje con botones...");
 
-    console.log("✅ Mensaje enviado con éxito.");
+    const buttons = [
+      { buttonId: `.musica ${url}`, buttonText: { displayText: "🎼 AUDIO 🎼" }, type: 1 },
+      { buttonId: `.video ${url}`, buttonText: { displayText: "🎬 VIDEO 🎬" }, type: 1 },
+      { buttonId: `.menu`, buttonText: { displayText: "📘 MENU 📘" }, type: 1 },
+    ];
+
+    const buttonMessage = {
+      image: { url: thumb },
+      caption: infoMessage,
+      footer: "𝙲𝙾𝚁𝚃𝙰𝙽𝙰 𝟸.𝟶",
+      buttons: buttons,
+      headerType: 4,
+      mentions: [m.sender],
+    };
+
+    await conn.sendMessage(m.chat, buttonMessage, { quoted: m });
+
+    console.log("✅ Mensaje enviado con botones.");
 
   } catch (error) {
     console.error("⚠️ Error:", error);
