@@ -1,56 +1,52 @@
 import fetch from "node-fetch";
-import yts from 'yt-search';
-import axios from "axios";
+import yts from "yt-search";
 
 const handler = async (m, { conn, text, command }) => {
   try {
+    console.log(`🔍 Comando ejecutado: ${command}`);
+    console.log(`📩 Mensaje recibido: ${text}`);
+
     if (!text.trim()) {
-      return conn.reply(m.chat, `🍬 Ingresa el nombre de la música a descargar.`, m);
+      return conn.reply(m.chat, "⚠️ Ingresa el nombre de la música a buscar.", m);
     }
 
+    console.log("🔎 Buscando en YouTube...");
     const search = await yts(text);
+
     if (!search.all || search.all.length === 0) {
-      return m.reply('No se encontraron resultados para tu búsqueda.');
+      console.log("❌ No se encontraron resultados.");
+      return m.reply("No se encontraron resultados para tu búsqueda.");
     }
 
     const videoInfo = search.all[0] || {};
     const { title, thumbnail, timestamp, views, ago, url, author } = videoInfo;
 
-    if (!title || !url) return m.reply('❌ No se pudo obtener información del video.');
+    console.log("🎬 Video encontrado:", title);
 
     const vistas = formatViews(views || 0);
-    const thumb = thumbnail || 'https://via.placeholder.com/300';  // Miniatura por defecto
+    const thumb = thumbnail || "https://via.placeholder.com/300"; // Miniatura por defecto
 
-    const infoMessage = `🎬 *${title}*\n📏 Duración: *${timestamp || '00:00'}*\n👀 Vistas: *${vistas}*\n📺 Canal: *${author?.name || 'Desconocido'}*\n📆 Publicado: *${ago || 'Desconocido'}*\n🔗 [Ver en YouTube](${url})`;
+    const infoMessage = `🎬 *${title}*\n📏 Duración: *${timestamp || "00:00"}*\n👀 Vistas: *${vistas}*\n📺 Canal: *${author?.name || "Desconocido"}*\n📆 Publicado: *${ago || "Desconocido"}*\n🔗 [Ver en YouTube](${url})`;
 
-    const buttons = [
-      { buttonId: `.musica ${url}`, buttonText: { displayText: "🎼 AUDIO 🎼" }, type: 1 },
-      { buttonId: `.video ${url}`, buttonText: { displayText: "🎬 VIDEO 🎬" }, type: 1 },
-      { buttonId: `.menu`, buttonText: { displayText: "📘 MENU 📘" }, type: 1 },
-    ];
-
+    console.log("📩 Enviando mensaje...");
     await conn.sendMessage(m.chat, { 
-      image: { url: thumb },
-      caption: infoMessage,
-      footer: "𝙲𝙾𝚁𝚃𝙰𝙽𝙰 𝟸.𝟶",
-      buttons: buttons,
-      viewOnce: true,
-      headerType: 4,
-      mentions: [m.sender],
+      text: infoMessage
     }, { quoted: m });
 
+    console.log("✅ Mensaje enviado con éxito.");
+
   } catch (error) {
-    console.error(error);
-    return m.reply(`⚠️ Error: ${error.message || 'Ocurrió un problema.'}`);
+    console.error("⚠️ Error:", error);
+    return m.reply(`⚠️ Error: ${error.message || "Ocurrió un problema."}`);
   }
 };
 
-handler.command = ['pruebap'];  
+handler.command = ['pruebap'];
 handler.tags = ['downloader'];
 handler.help = ['pruebap'];
 
 export default handler;
 
 function formatViews(views) {
-  return views >= 1000 ? (views / 1000).toFixed(1) + 'k' : views.toString();
+  return views >= 1000 ? (views / 1000).toFixed(1) + "k" : views.toString();
 }
