@@ -24,12 +24,16 @@ const handler = async (m, { conn, text, command }) => {
     console.log("🎬 Video encontrado:", title);
 
     const vistas = formatViews(views || 0);
-    const thumb = thumbnail || "https://via.placeholder.com/300"; // Miniatura por defecto
-
     const infoMessage = `🎬 *${title}*\n📏 Duración: *${timestamp || "00:00"}*\n👀 Vistas: *${vistas}*\n📺 Canal: *${author?.name || "Desconocido"}*\n📆 Publicado: *${ago || "Desconocido"}*\n🔗 [Ver en YouTube](${url})`;
 
-    console.log("📩 Enviando mensaje con botones...");
+    console.log("📩 Enviando mensaje sin botones para probar...");
 
+    // PRIMERO PROBAMOS SIN BOTONES
+    await conn.sendMessage(m.chat, { text: infoMessage }, { quoted: m });
+
+    console.log("✅ Mensaje básico enviado con éxito.");
+
+    // SI FUNCIONA, PROBAMOS CON BOTONES
     const buttons = [
       { buttonId: `.musica ${url}`, buttonText: { displayText: "🎼 AUDIO 🎼" }, type: 1 },
       { buttonId: `.video ${url}`, buttonText: { displayText: "🎬 VIDEO 🎬" }, type: 1 },
@@ -37,17 +41,18 @@ const handler = async (m, { conn, text, command }) => {
     ];
 
     const buttonMessage = {
-      image: { url: thumb },
-      caption: infoMessage,
+      text: infoMessage,
       footer: "𝙲𝙾𝚁𝚃𝙰𝙽𝙰 𝟸.𝟶",
       buttons: buttons,
-      headerType: 4,
+      headerType: 1, // Cambiado a 1 para evitar errores
       mentions: [m.sender],
     };
 
+    console.log("📩 Enviando mensaje con botones...");
+
     await conn.sendMessage(m.chat, buttonMessage, { quoted: m });
 
-    console.log("✅ Mensaje enviado con botones.");
+    console.log("✅ Mensaje con botones enviado con éxito.");
 
   } catch (error) {
     console.error("⚠️ Error:", error);
