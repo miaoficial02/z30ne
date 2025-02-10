@@ -25,7 +25,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
     let chat = global.db.data.chats[m.chat];
 
     if (chat.welcome && m.messageStubType === 27) {
-        let wel = `┌─❥⊱🌸SUMI BOT-MD🌸\n│「 🇯🇵 ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּ𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙤🇯🇵 ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּ 」\n└┬❥⊱「 @${userId.split`@`[0]} 」\n   │  ✑ Bienvenido/𝐀\n   │✑ ${groupMetadata.subject}\n   └───────────────┈ ⳹`;
+        let wel = `┌─❥⊱🌸SUMI BOT-MD🌸\n│「  ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּBIENVENIDO ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּ 」\n└┬❥⊱「 @${userId.split`@`[0]} 」\n   │  ✑ Bienvenido/𝐀\n   │✑ ${groupMetadata.subject}\n   └───────────────┈ ⳹`;
         try {
             await conn.sendMini(m.chat, packname, dev, wel, img, img, channel, fkontak);
         } catch (sendError) {
@@ -35,7 +35,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
     // Mensaje de despedida (cuando se sale)
     if (chat.welcome && m.messageStubType === 28) {
-        let bye = `┌─★🌸SUMI BOT-MD🌸 \n│「 🇯🇵 ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּ 𝙖𝙙𝙞𝙤𝙨 🇯🇵 ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּ 」\n└┬★ 「 @${userId.split`@`[0]} 」\n   │✑ se fue\n    │✑ jamas te quisimos aquí \n   └───────────────┈ ⳹`;
+        let bye = `┌─★🌸SUMI BOT-MD🌸 \n│「  ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּ 𝙖𝙙𝙞𝙤𝙨  ⃪⃘⵿᷒〬ᰰુ͡ꪆֺּ 」\n└┬★ 「 @${userId.split`@`[0]} 」\n   │✑ se fue\n    │✑ jamas te quisimos aquí \n   └───────────────┈ ⳹`;
         let img2;
         try {
             img2 = await (await fetch(goodbyeImage)).buffer(); 
