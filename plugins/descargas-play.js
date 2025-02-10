@@ -146,6 +146,6 @@ const buttonHandler = async (m, { conn, command, args }) => {
 
 buttonHandler.command = ['audiop', 'videop'];
 buttonHandler.tags = ['downloader'];
-buttonHandler.help = ['audio', 'video'];
+buttonHandler.help = ['audiop', 'videop'];
 
 export { buttonHandler };
