@@ -81,13 +81,13 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         const fileSizeInMB = fileSize / (1024 * 1024);
 
         const videoInfo = `
-     🌸𝙎𝙐𝙈𝙄 𝙎𝘼𝙆𝙐𝙍𝘼𝙕𝘼𝙒𝘼🌸
+    🌸𝙎𝙐𝙈𝙄 𝙎𝘼𝙆𝙐𝙍𝘼𝙕𝘼𝙒𝘼🌸
 · · ─────── ·♥︎· ─────── · ·
 
-➷ *Título⤿:* ${apiTitle}
-➷ *Subido⤿:* ${ago}
-➷ *Duración⤿:* ${timestamp}
-➷ *Vistas⤿:* ${(views / 1000).toFixed(1)}k (${views.toLocaleString()})
+•❥⏤͟͟͞͞Título⏤͟͟͞͞❥: ${apiTitle}
+•❥⏤͟͟͞͞Subido⏤͟͟͞͞❥: ${ago}
+•❥⏤͟͟͞͞Duración⏤͟͟͞͞❥: ${timestamp}
+•❥⏤͟͟͞͞Vistas⏤͟͟͞͞❥: ${(views / 1000).toFixed(1)}k (${views.toLocaleString()})
 ➷ *URL⤿:* ${videoUrl}
 
 ➤ 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙣𝙙𝙤 𝙨𝙪 𝙫𝙞𝙙𝙚𝙤 𝙚𝙨𝙥𝙚𝙧𝙚 𝙪𝙣 𝙢𝙤𝙢𝙚𝙣𝙩𝙤.. 
