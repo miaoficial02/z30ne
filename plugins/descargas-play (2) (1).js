@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import yts from "yt-search";
 
 const encodedApiUrl = "aHR0cHM6Ly9hcGkuYWdhdHoueHl6L2FwaS95dG1wNA==";
-const officialBrand = "©Prohibido La Copia, Código Oficial De MediaHub™";
+const officialBrand = 
 
 const verifyBrand = () => {
     if (officialBrand !== officialBrand) {
