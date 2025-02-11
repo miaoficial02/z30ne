@@ -9,7 +9,7 @@ let handler = async (m, { conn, args }) => {
   let thumbnail = await (await fetch(pp)).buffer();
 
   // Mensaje de depuración para verificar si entra correctamente
-  await conn.sendMessage(m.chat, { text: 'Debug: El comando se ejecutó correctamente.' });
+  await conn.sendMessage(m.chat, { text: 'Ejecutando.' });
 
   if (!args[0]) {
     let txt = `✦ *Ingresa el nombre de lo que quieres buscar*`;
