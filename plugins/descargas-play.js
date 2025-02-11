@@ -1,6 +1,3 @@
-/*codigo principal play de Starling by zaphkiel*/
-
-
 import fetch from "node-fetch";
 import yts from 'yt-search';
 import axios from "axios";
@@ -24,18 +21,11 @@ const ddownr = {
 
     try {
       const response = await axios.request(config);
-
       if (response.data && response.data.success) {
         const { id, title, info } = response.data;
         const { image } = info;
         const downloadUrl = await ddownr.cekProgress(id);
-
-        return {
-          id: id,
-          image: image,
-          title: title,
-          downloadUrl: downloadUrl
-        };
+        return { id, image, title, downloadUrl };
       } else {
         throw new Error('Fallo al obtener los detalles del video.');
       }
@@ -44,6 +34,7 @@ const ddownr = {
       throw error;
     }
   },
+
   cekProgress: async (id) => {
     const config = {
       method: 'GET',
@@ -56,7 +47,6 @@ const ddownr = {
     try {
       while (true) {
         const response = await axios.request(config);
-
         if (response.data && response.data.success && response.data.progress === 1000) {
           return response.data.download_url;
         }
@@ -69,10 +59,10 @@ const ddownr = {
   }
 };
 
-const handler = async (m, { conn, text, usedPrefix, command }) => {
+const handler = async (m, { conn, text }) => {
   try {
     if (!text.trim()) {
-      return conn.reply(m.chat, `🍬 ingresa el nombre de la música a descargar.`, m);
+      return conn.reply(m.chat, `🍬 Ingresa el nombre de la música a descargar.`, m);
     }
 
     const search = await yts(text);
@@ -83,82 +73,35 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const videoInfo = search.all[0];
     const { title, thumbnail, timestamp, views, ago, url } = videoInfo;
     const vistas = formatViews(views);
-    const infoMessage = `🎬 Título: *${title}*\n*°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°*\n> 🕒 Duración: *${timestamp}*\n*°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°*\n> 👀 Vistas: *${vistas}*\n*°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°*\n> 🍬 Canal: *${videoInfo.author.name || 'Desconocido'}*\n*°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°*\n> 📆 Publicado: *${ago}*\n*°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸.°*\n> 🔗 Enlace: ${url}`;
+    const infoMessage = `🎬 *Título:* ${title}\n\n⏱ *Duración:* ${timestamp}\n👀 *Vistas:* ${vistas}\n📆 *Publicado:* ${ago}\n🔗 *Enlace:* ${url}`;
     const thumb = (await conn.getFile(thumbnail))?.data;
 
-    const JT = {
-      contextInfo: {
-        externalAdReply: {
-          title: packname,
-          body: dev,
-          mediaType: 1,
-          previewType: 0,
-          mediaUrl: url,
-          sourceUrl: url,
-          thumbnail: thumb,
-          renderLargerThumbnail: true,
-        },
-      },
+    const buttons = [
+      { buttonId: `/ytmp3 ${url}`, buttonText: { displayText: '🎵 Descargar Audio' }, type: 1 },
+      { buttonId: `/ytmp4 ${url}`, buttonText: { displayText: '📹 Descargar Video' }, type: 1 },
+    ];
+
+    const messageOptions = {
+      text: infoMessage,
+      footer: 'Starling by Zaphkiel',
+      buttons: buttons,
+      headerType: 4, // Para usar imagen
+      image: { url: thumbnail },
     };
 
-    await conn.reply(m.chat, infoMessage, m, JT);
+    await conn.sendMessage(m.chat, messageOptions);
 
-    if (command === 'play' || command === 'yta' || command === 'ytmp3') {
-        const api = await ddownr.download(url, 'mp3');
-        const result = api.downloadUrl;
-        await conn.sendMessage(m.chat, { audio: { url: result }, mimetype: "audio/mpeg" }, { quoted: m });
-
-    } else if (command === 'play2' || command === 'ytv' || command === 'ytmp4') {
-      let sources = [
-        `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`,
-        `https://api.zenkey.my.id/api/download/ytmp4?apikey=zenkey&url=${url}`,
-        `https://axeel.my.id/api/download/video?url=${encodeURIComponent(url)}`,
-        `https://delirius-apiofc.vercel.app/download/ytmp4?url=${url}`
-      ];
-
-      let success = false;
-      for (let source of sources) {
-        try {
-          const res = await fetch(source);
-          const { data, result, downloads } = await res.json();
-          let downloadUrl = data?.dl || result?.download?.url || downloads?.url || data?.download?.url;
-
-          if (downloadUrl) {
-            success = true;
-            await conn.sendMessage(m.chat, {
-              video: { url: downloadUrl },
-              fileName: `${title}.mp4`,
-              mimetype: 'video/mp4',
-              caption: `🍬 Aqui tienes ฅ^•ﻌ•^ฅ.`,
-              thumbnail: thumb
-            }, { quoted: m });
-            break;
-          }
-        } catch (e) {
-          console.error(`Error con la fuente ${source}:`, e.message);
-        }
-      }
-
-      if (!success) {
-        return m.reply(`🍭 *No se pudo descargar el video:* No se encontró un enlace de descarga válido.`);
-      }
-    } else {
-      throw "Comando no reconocido.";
-    }
   } catch (error) {
-    return m.reply(`⚠️︎ *Error:* ${error.message}`);
+    console.error('Error en el comando:', error);
+    return m.reply(`⚠️ *Error:* ${error.message}`);
   }
 };
 
-handler.command = handler.help = ['play', 'play2', 'ytmp3', 'yta', 'ytmp4', 'ytv'];
+handler.command = ['play', 'play2', 'ytmp3', 'yta', 'ytmp4', 'ytv'];
 handler.tags = ['downloader'];
 
 export default handler;
 
 function formatViews(views) {
-  if (views >= 1000) {
-    return (views / 1000).toFixed(1) + 'k (' + views.toLocaleString() + ')';
-  } else {
-    return views.toString();
-  }
+  return views >= 1000 ? (views / 1000).toFixed(1) + 'k (' + views.toLocaleString() + ')' : views.toString();
 }
