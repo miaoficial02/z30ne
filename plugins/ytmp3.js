@@ -1,20 +1,49 @@
-// *[ ❀ YTMP3 ]*
-import fetch from 'node-fetch'
+import axios from 'axios';
 
-let HS = async (m, { conn, text }) => {
-if (!text) return conn.reply(m.chat, `❀ Ingresa un link de youtube`, m)
+const handler = async (m, { conn, args }) => {
+  try {
+    const query = args[0];
+    if (!query) return m.reply('🤍 *Ejemplo:* .ytmp4 <URL de YouTube>');
 
-try {
-let api = await fetch(`https://restapi.apibotwa.biz.id/api/ytmp3?url=${text}`)
-let json = await api.json()
-let title = json.result.metadata.title
-let dl_url = json.result.download.url
-await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: `${title}.mp3`, mimetype: 'audio/mp4' }, { quoted: m })
+    // Notificar al usuario que se está obteniendo el video
+    await m.reply('🔍 *Obteniendo detalles del video...*');
 
-} catch (error) {
-console.error(error)
-}}
+    // URL de la API para descargar el video
+    const apiUrl = `https://api.davidcyriltech.my.id/download/ytmp4?url=${encodeURIComponent(query)}`;
+    const response = await axios.get(apiUrl);
 
-HS.command = ['ytmp3']
+    // Comprobar si los datos de respuesta contienen download_url
+    if (!response.data?.result?.download_url) {
+      return m.reply('🚫 *Error al obtener el video.* Verifica la URL o intenta nuevamente más tarde.');
+    }
 
-export default HS
+    // Extraer detalles del video
+    const { title, quality, thumbnail, download_url } = response.data.result;
+
+    // Preparar el texto para el mensaje del video
+    const caption = `🔥 *\`Título:\`* ${title}
+🤍 *\`Calidad:\`* ${quality}
+🚩 *\`Miniatura:\`* (${thumbnail})
+🌩 *\`Descargar el video:\`* ${download_url}`;
+
+    // Enviar el video y el texto
+    await conn.sendMessage(m.chat, {
+      video: { url: download_url },
+      caption: caption,
+      thumbnail: { url: thumbnail },
+    }, { quoted: m });
+
+    // Notificar al usuario sobre la finalización exitosa
+    await m.reply('✅ *¡Video enviado con éxito!*');
+
+  } catch (error) {
+    console.error('Error en el comando ytmp4:', error.message);
+    m.reply('⚠️ *Ocurrió un error al procesar tu solicitud.* Por favor, intenta nuevamente más tarde.');
+  }
+};
+
+handler.help = ['test2'];
+handler.tags = ['descargar'];
+handler.command = /^test2$/i;
+
+export default handler;
