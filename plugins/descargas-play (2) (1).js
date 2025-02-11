@@ -132,7 +132,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     const fileSizeInMB = fileSize / (1024 * 1024);
 
     const videoInfo = `
-⌘━─━─[BarbozaBot-Ai]─━─━⌘
+⌘━─━─[sumi-bot]─━─━⌘
 
 ➷ *Título⤿:* ${apiTitle}
 ➷ *Subido⤿:* ${ago}
