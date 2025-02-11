@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import yts from 'yt-search';  
+import yts from 'yt-search';  // Importamos el paquete yt-search
 
 let handler = async (m, { conn, args }) => {
   console.log('Ejecutando el comando play...');
@@ -9,7 +9,7 @@ let handler = async (m, { conn, args }) => {
   let thumbnail = await (await fetch(pp)).buffer();
 
   // Mensaje de depuración para verificar si entra correctamente
-  await conn.sendMessage(m.chat, { text: 'Ejecutando.' });
+  await conn.sendMessage(m.chat, { text: '❤️‍🔥 By Sami sakurasawa.' });
 
   if (!args[0]) {
     let txt = `✦ *Ingresa el nombre de lo que quieres buscar*`;
@@ -55,7 +55,7 @@ let handler = async (m, { conn, args }) => {
 
     // Usamos yt-search para obtener resultados
     let searchResults = await yts(query);
-    console.log('Resultados obtenidos:', searchResults);
+    console.log('Resultados obtenidos:', JSON.stringify(searchResults, null, 2));
 
     if (!searchResults || !searchResults.videos || searchResults.videos.length === 0) {
       console.log('No se encontraron resultados.');
@@ -114,7 +114,7 @@ let handler = async (m, { conn, args }) => {
 
 handler.help = ['play *<texto>*'];
 handler.tags = ['dl'];
-handler.command = ['playp', 'play2p'];
+handler.command = ['play', 'play2'];
 
 export default handler;
 
