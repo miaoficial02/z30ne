@@ -91,7 +91,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 ➷ *URL⤿:* ${videoUrl}
 
 ➤ 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙣𝙙𝙤 𝙨𝙪 𝙫𝙞𝙙𝙚𝙤 𝙚𝙨𝙥𝙚𝙧𝙚 𝙪𝙣 𝙢𝙤𝙢𝙚𝙣𝙩𝙤.. 
-> _${officialBrand}_`;
+`;
 
         await conn.sendMessage(m.chat, { image: { url: apiImage }, caption: videoInfo });
         await m.react('🕓');
