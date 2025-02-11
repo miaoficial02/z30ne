@@ -97,7 +97,7 @@ const handler = async (m, { conn, text }) => {
   }
 };
 
-handler.command = ['play', 'play2', 'ytmp3', 'yta', 'ytmp4', 'ytv'];
+handler.command = ['playp', 'play2p', 'ytmp3', 'yta', 'ytmp4', 'ytv'];
 handler.tags = ['downloader'];
 
 export default handler;
