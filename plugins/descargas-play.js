@@ -72,7 +72,7 @@ let handler = async (m, { conn, text }) => {
     await conn.sendMessage(m.chat, { react: { text: "❌", key: m.key } });
 
     await conn.sendMessage(m.chat, {
-      text: `❌ *Error al procesar tu solicitud:*\n${error.message || "Error desconocido"}`,
+      text: `🍁 Ending || "Fail"}`,
     });
   }
 };
