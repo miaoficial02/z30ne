@@ -1,35 +1,79 @@
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
+import {
+    tmpdir
+} from 'os';
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// *[ ❀ PLAY 2 (video) ]*
-import fetch from 'node-fetch'
-import yts from 'yt-search'
+const fetchSticker = async (text, attempt = 1) => {
+    try {
+        const response = await axios.get(`https://kepolu-brat.hf.space/brat`, {
+            params: {
+                q: text
+            },
+            responseType: 'arraybuffer',
+        });
+        return response.data;
+    } catch (error) {
+        if (error.response?.status === 429 && attempt <= 3) {
+            const retryAfter = error.response.headers['retry-after'] || 5;
+            await delay(retryAfter * 1000);
+            return fetchSticker(text, attempt + 1);
+        }
+        throw error;
+    }
+};
 
-let handler = async (m, { conn, text, args }) => {
-if (!text) {
-return m.reply("❀ ingresa un texto de lo que quieres buscar")
-}
-    
-let ytres = await search(args.join(" "))
-let txt = `- *Título* : ${ytres[0].title}
-- *Duración* : ${ytres[0].timestamp}
-- *Publicado* : ${ytres[0].ago}
-- *Canal* : ${ytres[0].author.name || 'Desconocido'}
-- *Url* : ${'https://youtu.be/' + ytres[0].videoId}`
-await conn.sendFile(m.chat, ytres[0].image, 'thumbnail.jpg', txt, m)
-    
-try {
-let api = await fetch(`https://api.giftedtech.my.id/api/download/dlmp4?apikey=gifted&url=${ytres[0].url}`)
-let json = await api.json()
-let { quality, title, download_url } = json.result
-await conn.sendMessage(m.chat, { video: { url: download_url }, caption: `${title}`, mimetype: 'video/mp4', fileName: `${title}` + `.mp4`}, {quoted: m })
-} catch (error) {
-console.error(error)
-}}
+const handler = async (m, {
+    text,
+    conn
+}) => {
+    if (!text) {
+        return conn.sendMessage(m.chat, {
+            text: '🍬 Por favor ingresa el texto para hacer un sticker.',
+        }, {
+            quoted: m
+        });
+    }
 
-handler.command = /^(play2)$/i
+    try {
+        const buffer = await fetchSticker(text);
+        const outputFilePath = path.join(tmpdir(), `sticker-${Date.now()}.webp`);
+        await sharp(buffer)
+            .resize(512, 512, {
+                fit: 'contain',
+                background: {
+                    r: 255,
+                    g: 255,
+                    b: 255,
+                    alpha: 0
+                }
+            })
+            .webp({
+                quality: 80
+            })
+            .toFile(outputFilePath);
 
-export default handler
+        await conn.sendMessage(m.chat, {
+            sticker: {
+                url: outputFilePath
+            },
+        }, {
+            quoted: fkontak
+        });
+        fs.unlinkSync(outputFilePath);
+    } catch (error) {
+        return conn.sendMessage(m.chat, {
+            text: `⚠️ Ocurrio un erro.`,
+        }, {
+            quoted: m
+        });
+    }
+};
+handler.command = ['brat'];
+handler.tags = ['sticker'];
+handler.help = ['brat *<texto>*'];
 
-async function search(query, options = {}) {
-  let search = await yts.search({ query, hl: "es", gl: "ES", ...options })
-  return search.videos
-}
+export default handler;
