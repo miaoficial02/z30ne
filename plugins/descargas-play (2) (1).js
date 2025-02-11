@@ -3,9 +3,6 @@ import yts from "yt-search";
 
 const encodedApiUrl = "aHR0cHM6Ly9hcGkuYWdhdHoueHl6L2FwaS95dG1wNA==";
 
-
-const verifyBrand = () => {
-    if (officialBrand !== officialBrand) {
         throw new Error("❌ *ERROR CRÍTICO:* La marca oficial de MediaHub ha sido alterada. Restáurela para continuar usando el código.");
     }
 };
