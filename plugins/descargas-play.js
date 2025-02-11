@@ -49,7 +49,7 @@ let handler = async (m, { conn, text }) => {
       image: { url: video.thumbnail },
       caption: `⊱ ────── {.⋅ ♫ ⋅.} ───── ⊰
 
-🎵 *Título:* ${video.title}\n👁️ *Vistas:* ${video.views}\n⏳ *Duración:* ${video.timestamp}\n✍️ *Autor:* ${video.author.name}`,
+❥⏤͟͟͞͞Título⏤͟͟͞͞❥: ${video.title}\n❥⏤͟͟͞͞Vistas⏤͟͟͞͞❥: ${video.views}\n ❥⏤͟͟͞͞Duración⏤͟͟͞͞❥: ${video.timestamp}\n ❥⏤͟͟͞͞Autor⏤͟͟͞͞❥: ${video.author.name}`,
     });
 
     // Enviar solo el audio
