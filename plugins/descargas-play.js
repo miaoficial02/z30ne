@@ -47,9 +47,9 @@ let handler = async (m, { conn, text }) => {
     // Enviar información del video con miniatura
     await conn.sendMessage(m.chat, {
       image: { url: video.thumbnail },
-      caption: `⊱ ────── {.⋅ ♫ ⋅.} ───── ⊰
+      caption: `⊱ ─────── {.⋅ ♫ ⋅.} ────── ⊰
 
-•❥⏤͟͟͞͞Título⏤͟͟͞͞❥: ${video.title}\n •❥⏤͟͟͞͞Vistas⏤͟͟͞͞❥:* ${video.views}\n •❥⏤͟͟͞͞Duración⏤͟͟͞͞❥:* ${video.timestamp}\n •❥⏤͟͟͞͞Autor⏤͟͟͞͞❥:* ${video.author.name}
+•❥⏤͟͟͞͞Título⏤͟͟͞͞❥: ${video.title}\n •❥⏤͟͟͞͞Vistas⏤͟͟͞͞❥: ${video.views}\n •❥⏤͟͟͞͞Duración⏤͟͟͞͞❥: ${video.timestamp}\n •❥⏤͟͟͞͞Autor⏤͟͟͞͞❥: ${video.author.name}
 
 ✎﹏𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙣𝙙𝙤 𝙖𝙪𝙙𝙞𝙤 𝙚𝙨𝙥𝙚𝙧𝙚 𝙪𝙣 𝙢𝙤𝙢𝙚𝙣𝙩𝙤...`,
     });
