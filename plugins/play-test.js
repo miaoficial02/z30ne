@@ -56,9 +56,9 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     }
 }
 
-handler.help = ['read *<término>*'];
+handler.help = ['rea *<término>*'];
 handler.tags = ['dl'];
-handler.command = ['read'];
+handler.command = ['rea'];
 
 export default handler;
 
