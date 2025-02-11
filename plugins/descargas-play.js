@@ -9,7 +9,7 @@ let handler = async (m, { conn, args }) => {
   let thumbnail = await (await fetch(pp)).buffer();
 
   // Mensaje de depuración para verificar si entra correctamente
-  await conn.sendMessage(m.chat, { text: '❤️‍🔥 By Sami sakurasawa.' });
+  await conn.sendMessage(m.chat, { text: 'Debug: El comando se ejecutó correctamente.' });
 
   if (!args[0]) {
     let txt = `✦ *Ingresa el nombre de lo que quieres buscar*`;
@@ -67,36 +67,27 @@ let handler = async (m, { conn, args }) => {
     }
 
     let video = searchResults.videos[0];  // Tomamos el primer video de los resultados
-    let videoImg = await (await fetch(video.thumbnail)).buffer();
-
     let txt = `*\`Y O U T U B E - P L A Y\`*\n\n`;
     txt += `*\`Título:\`* ${video.title}\n`;
     txt += `*\`Duración:\`* ${parseDuration(video.timestamp)}\n`;
     txt += `*\`Canal:\`* ${video.author.name || 'Desconocido'}\n`;
     txt += `*\`Url:\`* ${video.url}\n\n`;
 
-    console.log('Enviando resultados...');
+    console.log('Enviando solo texto para prueba...');
+    await conn.sendMessage(m.chat, { text: txt });
 
+    console.log('Prueba de imagen...');
+    let videoImg = { url: video.thumbnail };
+    await conn.sendMessage(m.chat, { image: videoImg, caption: txt });
+
+    console.log('Prueba con botones...');
     await conn.sendMessage(m.chat, {
-      image: videoImg,
-      caption: txt,
-      footer: 'Selecciona una opción',
+      text: txt,
       buttons: [
-        {
-          buttonId: `/ytmp3 ${video.title}`,
-          buttonText: {
-            displayText: '✦ Audio',
-          },
-        },
-        {
-          buttonId: `/ytmp4 ${video.title}`,
-          buttonText: {
-            displayText: '✦ Video',
-          },
-        },
+        { buttonId: `/ytmp3 ${video.url}`, buttonText: { displayText: '🎵 Audio' }, type: 1 },
+        { buttonId: `/ytmp4 ${video.url}`, buttonText: { displayText: '📹 Video' }, type: 1 },
       ],
-      viewOnce: true,
-      headerType: 4,
+      headerType: 1,
     });
 
     console.log('Mensaje enviado correctamente.');
@@ -114,7 +105,7 @@ let handler = async (m, { conn, args }) => {
 
 handler.help = ['play *<texto>*'];
 handler.tags = ['dl'];
-handler.command = ['playp', 'play2p'];
+handler.command = ['play', 'play2'];
 
 export default handler;
 
