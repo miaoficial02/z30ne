@@ -45,8 +45,8 @@ let handler = async (m, { conn, args }) => {
   }
 };
 
-handler.help = ['ytmp3doc'];
+handler.help = ['ytmp3docc'];
 handler.tags = ['descargar'];
-handler.command = /^ytmp3doc$/i;
+handler.command = /^ytmp3docc$/i;
 
 export default handler;
