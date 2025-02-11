@@ -1,6 +1,15 @@
 import fetch from "node-fetch";
 import yts from "yt-search";
 
+const encodedApiUrl = "aHR0cHM6Ly9hcGkuYWdhdHoueHl6L2FwaS95dG1wNA==";
+const officialBrand = "©Prohibido La Copia, Código Oficial De MediaHub™"; 
+
+const verifyBrand = () => {
+    if (officialBrand !== officialBrand) {
+        throw new Error("❌ *ERROR CRÍTICO:* La marca oficial de MediaHub ha sido alterada. Restáurela para continuar usando el código.");
+    }
+};
+
 const fetchWithRetries = async (url, maxRetries = 2, timeout = 60000) => {
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
         try {
