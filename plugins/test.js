@@ -66,9 +66,9 @@ let handler = async (m, { conn, args }) => {
   await m.react('✅');
 };
 
-handler.help = ['w *<texto>*'];
+handler.help = ['diomar *<texto>*'];
 handler.tags = ['dl'];
-handler.command = ['w'];
+handler.command = ['dioma'];
 
 export default handler;
 
