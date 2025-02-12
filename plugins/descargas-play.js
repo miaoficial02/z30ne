@@ -47,7 +47,8 @@ let handler = async (m, { conn, text }) => {
     // Enviar información del video con miniatura
     await conn.sendMessage(m.chat, {
       image: { url: video.thumbnail },
-      caption: `⊱ ─────── {.⋅ ♫ ⋅.} ────── ⊰
+      caption: `🌸𝙎𝙐𝙈𝙄 𝙎𝘼𝙆𝙐𝙍𝘼𝙕𝘼𝙒𝘼🌸
+⊱ ─────── {.⋅ ♫ ⋅.} ────── ⊰
 
 •❥⏤͟͟͞͞Título⏤͟͟͞͞❥: ${video.title}\n •❥⏤͟͟͞͞Vistas⏤͟͟͞͞❥: ${video.views}\n •❥⏤͟͟͞͞Duración⏤͟͟͞͞❥: ${video.timestamp}\n •❥⏤͟͟͞͞Autor⏤͟͟͞͞❥: ${video.author.name}
 
