@@ -68,7 +68,7 @@ let handler = async (m, { conn, args }) => {
 
 handler.help = ['diomar *<texto>*'];
 handler.tags = ['dl'];
-handler.command = ['dioma'];
+handler.command = ['diomar'];
 
 export default handler;
 
