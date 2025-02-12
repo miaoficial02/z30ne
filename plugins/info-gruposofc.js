@@ -9,7 +9,7 @@ let str = `*🔮 GRUPOS OFICIALES*
 *➤ 𝙶𝚛𝚞𝚙𝚘𝚜 donde puedes encontrar el bot oficial y hablar con amigos*
 *1.-*https://chat.whatsapp.com/D9hmosKv0924sPqyXeu1CU_*
 *_╰━━━━━━━━━━━━━━━━⊜_*`
-await conn.sendFile(m.chat, media, 'gata.mp4', str, fkontak)}
+await conn.sendFile(m.chat, media, 'imagen', str, fkontak)}
 
 handler.command = /^grupos|linksk|gruposofc|gruposoficiales$/i
 handler.register = true
