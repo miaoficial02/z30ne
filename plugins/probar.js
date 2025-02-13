@@ -8,7 +8,7 @@ let handler = async (m, { conn }) => {
           let child = stdout.toString("utf-8");
           let ssd = child.replace(/Memory:/, "Ram:");
 
-          m.reply(`Hola ${toM(c)}`);
+          m.reply(`Hola ${taguser}`);
             });
 }
 handler.help = ['info']
