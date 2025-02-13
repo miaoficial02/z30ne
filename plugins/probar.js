@@ -9,7 +9,7 @@ let handler = async (m, { conn }) => {
           let ssd = child.replace(/Memory:/, "Ram:");
 
           m.reply(`${saludo}\n
-{$name}\n*Omg llegue tarde :( culpa de*\nDiomar`);
+{$name2}\n*Omg llegue tarde :( culpa de*\nDiomar`);
             });
 }
 handler.help = ['info']
