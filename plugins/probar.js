@@ -21,14 +21,14 @@ const handler = async (m, {conn}) => {
   const fechaasi = moment().tz('Asia/Jakarta').format('DD/MM HH:mm');
   const fechabra = moment().tz('America/Sao_Paulo').format('DD/MM HH:mm');
   const fechaafri = moment().tz('Africa/Malabo').format('DD/MM HH:mm');
-  await conn.sendMessage(m.chat, {text: `
-「 ZONA-HORARIA ⏰ 」
-⏱️Peru       : ${fechaper}
-⏱️Mexico     : ${fechamex}
-⏱️Bolivia    : ${fechabol}
-⏱️Chile      : ${fechachi}
-⏱️Argentina  : ${fechaarg}
-⏱️Colombia   : ${fechacol}
+  await conn.sendMessage(m.chat, {text: `\`\`\`
+「ZONA-HORARIA」
+●Peru       : ${fechaper}
+●Mexico     : ${fechamex}
+●Bolivia    : ${fechabol}
+●Chile      : ${fechachi}
+●Argentina  : ${fechaarg}
+●Colombia   : ${fechacol}
 ⏱️Ecuador    : ${fechaecu}
 ⏱️Costa_Rica : ${fechacosr}
 ⏱️Cuba       : ${fechacub}
@@ -40,10 +40,10 @@ const handler = async (m, {conn}) => {
 ⏱️Venezuela  : ${fechaven}
 ⏱️Paraguay   : ${fechapar}
 ⏱️New York   : ${fechanew}
-⏱️Asia       : ${fechaasi}
-⏱️Brasil     : ${fechabra}
-⏱️G.N.Q      : ${fechaafri}
-`
+●Asia       : ${fechaasi}
+●Brasil     : ${fechabra}
+●G.N.Q      : ${fechaafri}
+\`\`\`
 ${String.fromCharCode(8206).repeat(850)}
 Zona horaria del servidor actual:\n[ ${Intl.DateTimeFormat().resolvedOptions().timeZone} ]\n${moment().tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('DD/MM/YY HH:mm:ss')}`}, {quoted: m});
 };
