@@ -1,95 +1,85 @@
-import fetch from 'node-fetch';
+/*codigo creado por Rayo y José Elver
+-@Rayo-ofc 
+-@Joseelver
+*/
+import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys';
 import yts from 'yt-search';
+import fs from 'fs';
 
-let handler = async (m, { conn, args }) => {
-  if (!args[0]) return conn.reply(m.chat, '*\`Ingresa el nombre de lo que quieres buscar\`*', m, rcanal);
+const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
+    const device = await getDevice(m.key.id);
 
-  await m.react('🕓');
-  let attempts = 0;
-  let video;
+    if (!text) return conn.reply(m.chat, '🤍 Ingresa el nombre de una musica de YouTube', m, rcanal);
 
-  while (attempts < 3) {
-    try {
-      let res = await search(args.join(" "));
-      if (res.length > 0) {
-        video = res[0]; 
-        break; 
-      }
-      attempts++;
-    } catch (e) {
-      console.error(e);
-      attempts++;
+    if (device !== 'desktop' && device !== 'web') {
+        const results = await yts(text);
+        const videos = results.videos.slice(0, 20);
+        const randomIndex = Math.floor(Math.random() * videos.length);
+        const randomVideo = videos[randomIndex];
+
+        const messa = await prepareWAMessageMedia({ image: { url: randomVideo.thumbnail }}, { upload: conn.waUploadToServer });
+        const interactiveMessage = {
+            body: {
+                text: `乂  Y O U T U B E  -  P L A Y\n\n» *Título:* ${randomVideo.title}\n» *Duración:* ${randomVideo.duration.timestamp}\n» *Autor:* ${randomVideo.author.name || 'Desconocido'}\n» *Publicado:* ${randomVideo.ago}\n» *Enlace:* ${randomVideo.url}\n`
+            },
+            footer: { text: `${global.dev}`.trim() },
+            header: {
+                title: `*🍇 Búsqueda de Video 🍇*\n`,
+                hasMediaAttachment: true,
+                imageMessage: messa.imageMessage,
+            },
+            nativeFlowMessage: {
+                buttons: [
+                    {
+                        name: 'single_select',
+                        buttonParamsJson: JSON.stringify({
+                            title: 'OPCIONES DE DESCARGA',
+                            sections: videos.map((video) => ({
+                                title: video.title,
+                                rows: [
+                                    { header: video.title, title: video.author.name, description: 'Descargar MP3 (Audio)', id: `${prefijo}ytmp3 ${video.url}` },
+                                    { header: video.title, title: video.author.name, description: 'Descargar MP4 (Video)', id: `${prefijo}ytmp4 ${video.url}` },
+                                    { header: video.title, title: video.author.name, description: 'Descargar MP3 como Documento', id: `${prefijo}ytmp3doc ${video.url}` },
+                                    { header: video.title, title: video.author.name, description: 'Descargar MP4 como Documento', id: `${prefijo}ytmp4doc ${video.url}` }
+                                ]
+                            }))
+                        })
+                    }
+                ],
+                messageParamsJson: ''
+            }
+        };
+
+        let msg = generateWAMessageFromContent(m.chat, {
+            viewOnceMessage: {
+                message: {
+                    interactiveMessage,
+                },
+            },
+        }, { userJid: conn.user.jid, quoted: null });
+        conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
+
+    } else {
+        const idioma = global.db.data.users[m.sender].language;
+        const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`));
+        const traductor = _translate.plugins.buscador_yts;
+        const results = await yts(text);
+        const tes = results.all;
+        const teks = results.all.map((v) => {
+            if (v.type === 'video') return `
+° *_${v.title}_*
+↳ 🫐 *_Enlace :_* ${v.url}
+↳ 🕒 *_Duración :_* ${v.timestamp}
+↳ 📥 *_Subido :_* ${v.ago}
+↳ 👁 *_Vistas :_* ${v.views}`;
+        }).filter(v => v).join('\n\n◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦◦\n\n');
+        conn.sendFile(m.chat, tes[0].thumbnail, 'error.jpg', teks.trim(), m);
     }
-  }
-
-  if (!video) {
-    await m.react('✖️');
-    return conn.reply(m.chat, '*\`No se encontraron videos tras varios intentos.\`*', m);
-  }
-
-  let img = await (await fetch(video.image)).buffer();
-  let txt = `*\`【Y O U T U B E - P L A Y】\`*\n\n`;
-  txt += `• *\`Título:\`* ${video.title}\n`;
-  txt += `• *\`Duración:\`* ${secondString(video.duration.seconds)}\n`;
-  txt += `• *\`Publicado:\`* ${eYear(video.ago)}\n`;
-  txt += `• *\`Canal:\`* ${video.author.name || 'Desconocido'}\n`;
-  txt += `• *\`Url:\`* _https://youtu.be/${video.videoId}_\n\n`;
-
-  await conn.sendMessage(m.chat, {
-    image: img,
-    caption: txt,
-    footer: 'Selecciona una opción',
-    buttons: [
-      {
-        buttonId: `.ytmp3 https://youtu.be/${video.videoId}`,
-        buttonText: {
-          displayText: '˙˚ʚ₍ ᐢ. ̫ .ᐢ ₎ɞ˚ 𝗔𝗨𝗗𝗜𝗢 ',
-        },
-      },
-      {
-        buttonId: `.ytmp4 https://youtu.be/${video.videoId}`,
-        buttonText: {
-          displayText: '˙˚ʚ₍ ᐢ. ̫ .ᐢ ₎ɞ˚ 𝗩𝗜𝗗𝗘𝗢',
-        },
-      },
-      {
-        buttonId: `.ytmp4doc https://youtu.be/${video.videoId}`,
-        buttonText: {
-          displayText: '🔥 𝗩𝗜𝗗𝗘𝗢 (𝗗𝗼𝗰)',
-        },
-      },
-    ],
-    viewOnce: true,
-    headerType: 4,
-  }, { quoted: m });
-
-  await m.react('✅');
 };
 
 handler.help = ['play *<texto>*'];
 handler.tags = ['dl'];
-handler.command = ['play9'];
+handler.command = ['play'];
+handler.register = true;
 
 export default handler;
-
-async function search(query, options = {}) {
-  let search = await yts.search({ query, hl: "es", gl: "ES", ...options });
-  return search.videos;
-}
-
-function secondString(seconds) {
-  seconds = Number(seconds);
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = Math.floor(seconds % 60);
-  return `${h > 0 ? h + 'h ' : ''}${m}m ${s}s`;
-}
-
-function eYear(txt) {
-  if (txt.includes('year')) return txt.replace('year', 'año').replace('years', 'años');
-  if (txt.includes('month')) return txt.replace('month', 'mes').replace('months', 'meses');
-  if (txt.includes('day')) return txt.replace('day', 'día').replace('days', 'días');
-  if (txt.includes('hour')) return txt.replace('hour', 'hora').replace('hours', 'horas');
-  if (txt.includes('minute')) return txt.replace('minute', 'minuto').replace('minutes', 'minutos');
-  return txt;
-}
