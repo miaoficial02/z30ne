@@ -39,7 +39,7 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
                                 rows: [
                                     { header: video.title, title: video.author.name, description: 'Descargar MP3 (Audio)', id: `${prefijo}ytmp3 ${video.url}` },
                                     { header: video.title, title: video.author.name, description: 'Descargar MP4 (Video)', id: `${prefijo}play2 ${video.url}` },
-                                    { header: video.title, title: video.author.name, description: 'Descargar MP3 como Documento', id: `${prefijo}ytmp3doc ${video.url}` },
+                                    { header: video.title, title: video.author.name, description: 'Descargar MP3 como Documento', id: `${prefijo}play4 ${video.url}` },
                                     { header: video.title, title: video.author.name, description: 'Descargar MP4 como Documento', id: `${prefijo}ytmp4doc ${video.url}` }
                                 ]
                             }))
