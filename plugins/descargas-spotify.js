@@ -1,5 +1,3 @@
-const key = '' // Obtén tu apikey registrandote aquí: https://api.lyrax.net
-
 let handler = async (m, { conn, text, command, usedPrefix }) => {
 if (!text) throw `🌱 Ingrese un texto o URL lara buscar o descargar una canción de Spotify.`
 
