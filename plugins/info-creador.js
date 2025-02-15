@@ -1,36 +1,35 @@
 import PhoneNumber from 'awesome-phonenumber'
 
 let handler = async (m, { conn, usedPrefix, text, args, command }) => {
-//m.react('💓')
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let pp = await conn.profilePictureUrl(who).catch(_ => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')
-let biografia = await conn.fetchStatus('584164137403' +'@s.whatsapp.net').catch(_ => 'Sin Biografia')
-let biografiaBot = await conn.fetchStatus(`${conn.user.jid.split('@')[0]}` +'@s.whatsapp.net').catch(_ => 'Sin Biografía')
-let bio = biografia.status?.toString() || 'Sin Biografía'
-let biobot = biografiaBot.status?.toString() || 'Sin Biografía'
-let name = await conn.getName(who)
+    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+    let pp = await conn.profilePictureUrl(who).catch(_ => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')
 
-  await sendContactArray(conn, m.chat, [
-     [`${nomorown}`, `👑 Staff owner`, `👑 𝕷͢𝖊𝖔፝֟፝֟፝֟፝֟፝֟፝֟𝖓𝖊𝖑 👑`, dev, correo, `MX`, `${global.yt}`, bio],
-[`${conn.user.jid.split('@')[0]}`, `🌸 Es el Bot`, `${packname}`, `📵 No Hacer Spam`, correo, `MX`, md, biobot]
-], m)
-  //m.reply(`Hola @${m.sender.split(`@`)[0]} este es el contacto de mi creador, no hagas spam!!`)
-  } 
+    let bio1 = await conn.fetchStatus('584164137403@s.whatsapp.net').catch(_ => 'Sin Biografía')
+    let bio2 = await conn.fetchStatus('50558124470@s.whatsapp.net').catch(_ => 'Sin Biografía')
+    let bioBot = await conn.fetchStatus(`${conn.user.jid.split('@')[0]}@s.whatsapp.net`).catch(_ => 'Sin Biografía')
 
-handler.help = ["creador","owner"]
+    let name = await conn.getName(who)
+
+    await sendContactArray(conn, m.chat, [
+        ['584164137403', '👑 Staff owner', '👑 𝕷͢𝖊𝖔፝֟፝֟፝֟፝֟፝֟፝֟𝖓𝖊𝖑 👑', 'Desarrollador', 'correo@example.com', 'MX', 'https://youtube.com/', bio1.status?.toString() || 'Sin Biografía'],
+        ['50558124470', '💻 Staff zahpkiel', 'Programador Sss+', 'Soporte Técnico', 'enderjosueasevedotorrez@gmail.com', 'NI', 'https://github.com/EnderJs-CreatorGL', bio2.status?.toString() || 'Sin Biografía'],
+        [`${conn.user.jid.split('@')[0]}`, '🌸 Es el Bot', 'Bot Oficial', '📵 No Hacer Spam', 'correo@example.com', 'MX', 'https://mibot.com/', bioBot.status?.toString() || 'Sin Biografía']
+    ], m)
+} 
+
+handler.help = ["creador", "owner"]
 handler.tags = ["info"]
-handler.command = ['owner','creador']
+handler.command = ['owner', 'creador']
 export default handler
 
 async function sendContactArray(conn, jid, data, quoted, options) {
-        if (!Array.isArray(data[0]) && typeof data[0] === 'string') data = [data]
-                let contacts = []
-        for (let [number, name, isi, isi1, isi2, isi3, isi4, isi5] of data) {
-            number = number.replace(/[^0-9]/g, '')
-            let njid = number + '@s.whatsapp.net'
-            let biz = await conn.getBusinessProfile(njid).catch(_ => null) || {}
-            // N:;${name.replace(/\n/g, '\\n').split(' ').reverse().join(';')};;;
-            let vcard = `
+    if (!Array.isArray(data[0]) && typeof data[0] === 'string') data = [data]
+    let contacts = []
+    for (let [number, name, isi, isi1, isi2, isi3, isi4, isi5] of data) {
+        number = number.replace(/[^0-9]/g, '')
+        let njid = number + '@s.whatsapp.net'
+        let biz = await conn.getBusinessProfile(njid).catch(_ => null) || {}
+        let vcard = `
 BEGIN:VCARD
 VERSION:3.0
 N:Sy;Bot;;;
@@ -41,22 +40,18 @@ item1.X-ABLabel:${isi1}
 item2.EMAIL;type=INTERNET:${isi2}
 item2.X-ABLabel:📧 Email
 item3.ADR:;;${isi3};;;;
-item3.X-ABADR:ac🇪🇦
-item3.X-ABLabel: 🇪🇦
+item3.X-ABADR:ac
+item3.X-ABLabel: 🌍 Ubicación
 item4.URL:${isi4}
 item4.X-ABLabel:Website
 item5.X-ABLabel:${isi5}
 END:VCARD`.trim()
-            contacts.push({ vcard, displayName: name })
+        contacts.push({ vcard, displayName: name })
+    }
+    return await conn.sendMessage(jid, {
+        contacts: {
+            displayName: contacts.length > 1 ? `${contacts.length} contactos` : contacts[0].displayName,
+            contacts,
         }
-        return await conn.sendMessage(jid, {
-            contacts: {
-                displayName: (contacts.length > 1 ? `2013 kontak` : contacts[0].displayName) || null,
-                contacts,
-            }
-        },
-        {
-            quoted,
-            ...options
-        })
+    }, { quoted, ...options })
 }
