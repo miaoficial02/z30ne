@@ -10,7 +10,7 @@ var handler = async (m, { conn }) => {
 │ *INSTALACIÓN DE SUMI-ZAKURASAWA*
 ╰┬────────────┈⊷
 ┌┤ *REQUISITOS PARA LA INSTALACIÓN*
-┌┤➳ _Dudas: wa.me/51929972576_
+┌┤➳ _Dudas: wa.me/50558124470_
 ┌┤➳ _1 GB de almacenamiento_
 ┌┤➳ _Termux: https://www.mediafire.com/file/3hsvi3xkpq3a64o/termux_118.apk/file_
 ┌┤➳ _GitHub: https://github.com/leoneloficial/Sumi-zakurasawa_
@@ -23,7 +23,7 @@ var handler = async (m, { conn }) => {
   │> apt update -y && apt upgrade -y
   │> pkg install -y git nodejs ffmpeg imagemagick yarn
   │> git clone https://github.com/leoneloficial/Sumi-zakurasawa && cd Sumi-zakurasawa
-  │> bash install.sh
+  │> bash update.sh
   │> npm start
   ╭──────────────────────────────────
   │ Escribe "instalarbot" para enviar estos comandos automáticamente.
@@ -46,7 +46,7 @@ handler.before = async (m) => {
             'apt update -y && apt upgrade -y',
             'pkg install -y git nodejs ffmpeg imagemagick yarn',
             'git clone https://github.com/leoneloficial/Sumi-zakurasawa && cd Sumi-zakurasawa',
-            'bash install.sh',
+            'bash update.sh',
             'npm start'
         ];
         await enviarComandos(m, comandos);
