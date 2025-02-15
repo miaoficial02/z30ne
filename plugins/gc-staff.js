@@ -17,7 +17,7 @@ let textoB =
 
 by 𝕷͢𝖊𝖔፝֟፝֟፝֟፝֟፝֟፝֟𝖓𝖊𝖑`.trim()
 await conn.sendFile(m.chat, pp, 'error.jpg', textoA + textoB, m, false, { mentions: [...groupAdmins.map(v => v.id), owner] })
-//await conn.sendButton(m.chat, textoA, textoB, pp, [[smsConMenu(), `.menu`]], m, { mentions: [...groupAdmins.map(v => v.id), owner] })
+await conn.sendButton(m.chat, textoA, textoB, pp, [[smsConMenu(), `.menu`]], m, { mentions: [...groupAdmins.map(v => v.id), owner] })
 }
 handler.command = /^(staff|Staffs|STAFF)$/i
 handler.group = true
