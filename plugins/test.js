@@ -17,7 +17,7 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
         const videos = results.videos.slice(0, 20);
         const randomIndex = Math.floor(Math.random() * videos.length);
         const randomVideo = videos[randomIndex];
-
+m.react('✅');
         const messa = await prepareWAMessageMedia({ image: { url: randomVideo.thumbnail }}, { upload: conn.waUploadToServer });
         const interactiveMessage = {
             body: {
