@@ -147,7 +147,7 @@ Tu pendejada se está enviando espere un rato..`;
   }
 };
 
-handler.command = handler.help = ['pla', 'pla2'];
+handler.command = handler.help = ['play30', 'pla40'];
 handler.tags = ['dl'];
 handler.diamond = 4;
 
