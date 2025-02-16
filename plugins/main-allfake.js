@@ -113,7 +113,7 @@ global.icono = [
 'https://qu.ax/hUJrs.jpg',
 'https://qu.ax/nqfho.jpg',
 'https://qu.ax/vorRq.jpg',
-'https://files.catbox.moe/y9rrvf.jpg',
+'https://qu.ax/QKMCx.jpg',
 ].getRandom()
 
 global.rcanal = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, serverMessageId: 100, newsletterName: channelRD.name, }, externalAdReply: { showAdAttribution: true, title: textbot, body: 'sumi-Bot_MD', mediaUrl: null, description: null, previewType: "PHOTO", thumbnailUrl: icono, sourceUrl: redes, mediaType: 1, renderLargerThumbnail: false }, }, }}
