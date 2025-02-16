@@ -2,7 +2,18 @@ import fs from 'fs';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Lista de números autorizados (máximo 3)
+const allowedUsers = [
+    '521XXXXXXXXXX@s.whatsapp.net', // Número 1 (reemplázalo con el real)
+    '521XXXXXXXXXX@s.whatsapp.net', // Número 2
+    '521XXXXXXXXXX@s.whatsapp.net'  // Número 3
+];
+
 const handler = async (m, { conn, text, participants }) => {
+    if (!allowedUsers.includes(m.sender)) {
+        return m.reply('❌ *No tienes permiso para usar este comando.*');
+    }
+
     if (!text) return m.reply('[❗] Debes proporcionar un mensaje para transmitir.');
 
     const fkontak = {
@@ -37,6 +48,5 @@ const handler = async (m, { conn, text, participants }) => {
 handler.help = ['broadcast', 'bc'].map(v => v + ' <mensaje>');
 handler.tags = ['owner'];
 handler.command = /^(comunicar|comunicado|broadcastall|bc)$/i;
-handler.owner = true;
 
 export default handler;
