@@ -5,25 +5,30 @@ import fetch from 'node-fetch'
 let handler = async (m) => {
   let q = m.quoted ? m.quoted : m
   let mime = (q.msg || q).mimetype || ''
-  if (!mime) return conn.reply(m.chat, '🍃 Responde a una *Imagen* o *Vídeo.*', m)
+  if (!mime) return conn.reply(m.chat, '☄ Responde a una *Imagen* o *Vídeo.*', m, rcanal)
+  await m.react(rwait)
   try {
   let media = await q.download()
   let isTele = /image\/(png|jpe?g|gif)|video\/mp4/.test(mime)
   let link = await (isTele ? uploadImage : uploadFile)(media)
   let img = await (await fetch(`${link}`)).buffer()
-  let txt = `乂  *L I N K - C A T B O X*  乂\n\n`
+  let txt = ` *L I N K - E N L A C E* \n\n`
       txt += `*» Enlace* : ${link}\n`
+      txt += `*» Acortado* : ${await shortUrl(link)}\n`
       txt += `*» Tamaño* : ${formatBytes(media.length)}\n`
       txt += `*» Expiración* : ${isTele ? 'No expira' : 'Desconocido'}\n\n`
       txt += `> *${dev}*`
 
-await conn.reply(m.chat, txt, m, rcanal)
-} catch (e) {
-await conn.reply(m.chat, '⚠︎ *Error:* ' + e, m)
+await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m, rcanal)
+await m.react(done)
+} catch {
+await conn.reply(m.chat, '🌹 Ocurrió un error', m, fake)
+await m.react(error)
 }}
 handler.help = ['tourl']
-handler.tags = ['tools']
-handler.command = ['tourl', 'catbox']
+handler.tags = ['transformador']
+handler.command = ['tourl', 'upload']
+handler.premium = false
 export default handler
 
 function formatBytes(bytes) {
