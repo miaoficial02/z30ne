@@ -31,5 +31,5 @@ let handler = async (m, { conn, args, usedPrefix: prefix, command }) => {
   }
 }
 
-handler.command = /^(dlplaystore)$/i;
+handler.command = /^(playstore)$/i;
 export default handler;
