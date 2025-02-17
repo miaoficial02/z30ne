@@ -1,24 +1,42 @@
-// *[ ❀ YTMP4 ]*
-import fetch from 'node-fetch'
+import axios from 'axios';
 
-let handler = async (m, { conn, command, text, usedPrefix }) => {
-if (!text) return conn.reply(m.chat, `❀ Ingresa un link de youtube`, m)
+const downloadHandler = {
+  download: async (url) => {
+    const apiUrl = `https://api.siputzx.my.id/api/d/ytmp4?url=${encodeURIComponent(url)}`;
+    
+    try {
+      const response = await axios.get(apiUrl);
 
-try {
-let api = await fetch(`https://api.vreden.web.id/api/ytmp4?url=${text}`)
-let json = await api.json()
-let { title, thumbnail, timestamp, ago, views, author } = json.result.metadata
-let HS = `- *Titulo :* ${title}
-- *Duracion :* ${timestamp}
-- *Subido :* ${ago}
-- *Visitas :* ${views}
-- *Autor :* ${author.name}`
-await conn.sendFile(m.chat, thumbnail, 'HasumiBotFreeCodes.jpg', HS, m)
-await conn.sendFile(m.chat, json.result.download.url, 'HasumiBotFreeCodes.mp4', null, m)
-} catch (error) {
-console.error(error)
-}}
+      if (response.data && response.data.status) {
+        return response.data.data;
+      } else {
+        throw new Error('Fallo al obtener los detalles del video.');
+      }
+    } catch (error) {
+      console.error('Error en la descarga:');
+      throw error;
+    }
+  }
+};
 
-handler.command = /^(ytmp4)$/i
+const handler = async (m, { conn, text }) => {
+  try {
+    if (!text.trim()) {
+      return conn.reply(m.chat, `> Ingresa el enlace de YouTube para descargar.`, m);
+    }
+await m.react('🕓');
+    const videoInfo = await downloadHandler.download(text);
+    const videoTitle = videoInfo.title;
+    const videoUrl = videoInfo.dl;
 
-export default handler
+    await conn.sendMessage(m.chat, { video: { url: videoUrl }, mimetype: 'video/mp4', caption: `*Título:* ${videoTitle}` }, { quoted: m });
+
+  } catch (error) {
+    return m.reply(`Error: ${error.message}`);
+  }
+};
+
+handler.command = handler.help = ['ytmp4', 'ytv'];
+handler.tags = ['downloader'];
+
+export default handler;
