@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 let handler = async (m,{conn,text})=>{
 if(!text)return conn.reply(m.chat,'☄ Ingresa un link de TikTok.',m)
 try{
+await m.react('🕓');
 let api=await fetch(`https://only-awan.biz.id/api/fullApi/d/tiktok?url=${encodeURIComponent(text)}`)
 let json=await api.json()
 if(!json.status||!json.data?.status||!json.data?.data?.urls?.length){
@@ -14,7 +15,7 @@ await conn.sendMessage(
 m.chat,
 { 
 image:{url:downloadLink}, 
-caption:'𝑨𝑸𝑼𝑰 𝑻𝑰𝑬𝑵𝑬𝑺 𝑻𝑼 𝑽𝑰𝑫𝑬𝑶 𝑫𝑬 𝑻𝑰𝑲𝑻𝑶𝑲./nฅ( ̳• ◡ • ̳)ฅ' 
+caption:'𝑨𝑸𝑼𝑰 𝑻𝑰𝑬𝑵𝑬𝑺 𝑻𝑼 𝑽𝑰𝑫𝑬𝑶 𝑫𝑬 𝑻𝑰𝑲𝑻𝑶𝑲 ฅ( ̳• ◡ • ̳)ฅ' 
 },
 {quoted:m}
 )
@@ -23,7 +24,7 @@ await conn.sendMessage(
 m.chat,
 { 
 video:{url:downloadLink}, 
-caption:'𝑨𝑸𝑼𝑰 𝑻𝑰𝑬𝑵𝑬𝑺 𝑻𝑼 𝑽𝑰𝑫𝑬𝑶 𝑫𝑬 𝑻𝑰𝑲𝑻𝑶𝑲./nฅ( ̳• ◡ • ̳)ฅ' 
+caption:'𝑨𝑸𝑼𝑰 𝑻𝑰𝑬𝑵𝑬𝑺 𝑻𝑼 𝑽𝑰𝑫𝑬𝑶 𝑫𝑬 𝑻𝑰𝑲𝑻𝑶𝑲 ฅ( ̳• ◡ • ̳)ฅ' 
 },
 {quoted:m}
 )
