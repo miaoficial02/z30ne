@@ -8,6 +8,7 @@ let json=await api.json()
 if(!json.status||!json.data?.status||!json.data?.data?.urls?.length){
 return m.reply('❌ Error al obtener los detalles del video. Asegúrate de que el enlace es válido.')
 }
+await m.react('✅');
 let {urls}=json.data.data
 let downloadLink=urls[0]
 if(downloadLink.includes('jpg')||downloadLink.includes('png')||downloadLink.includes('jpeg')||downloadLink.includes('webp')||downloadLink.includes('heic')||downloadLink.includes('tiff')||downloadLink.includes('bmp')){
