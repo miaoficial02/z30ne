@@ -24,7 +24,6 @@ const handler = async (m, { conn, text }) => {
     if (!text.trim()) {
       return conn.reply(m.chat, `> Ingresa el enlace de YouTube para descargar.`, m);
     }
-await m.react('🕓');
     const videoInfo = await downloadHandler.download(text);
     const videoTitle = videoInfo.title;
     const videoUrl = videoInfo.dl;
