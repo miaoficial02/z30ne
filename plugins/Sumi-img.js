@@ -1,6 +1,3 @@
-/*
-- Crear imagenes con *Sumi-Ia*
-*/
 import axios from 'axios';
 
 const handler = async (m, { conn, args }) => {
@@ -16,7 +13,7 @@ const handler = async (m, { conn, args }) => {
         conn.reply(m.chat, '*🧧 Espere un momento...*', m);
 
         const response = await axios.get(apiUrl);
-await m.react('🕓');
+
         if (response.data && response.data.data && response.data.data.image_link) {
             const imageUrl = response.data.data.image_link;
 
@@ -30,8 +27,8 @@ await m.react('🕓');
     }
 };
 
-handler.command = ['Sumi'];
-handler.help = ['Sumi'];
-handler.tags = ['Sumi'];
+handler.command = ['dalle'];
+handler.help = ['dalle'];
+handler.tags = ['tools'];
 
 export default handler;
