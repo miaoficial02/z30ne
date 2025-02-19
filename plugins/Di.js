@@ -7,7 +7,7 @@ conn.reply(m.chat, runtime, m, { contextInfo: { externalAdReply: { mediaUrl: fal
 }
 handler.help = ['Sumi-zakurazawa']
 handler.tags = ['Sumi-zakurazawa']
-handler.command = ['sumi', 'sum']
+handler.command = ['sum']
 
 export default handler
 
