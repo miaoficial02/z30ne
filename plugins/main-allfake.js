@@ -110,10 +110,10 @@ global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo
 global.icono = [ 
 'https://files.catbox.moe/y9rrvf.jpg',
 'https://files.catbox.moe/ovdrkb.jpg',
-'https://qu.ax/hUJrs.jpg',
-'https://qu.ax/nqfho.jpg',
-'https://qu.ax/vorRq.jpg',
-'https://qu.ax/QKMCx.jpg',
+'https://files.catbox.moe/z3nj5s.jpg',
+'https://files.catbox.moe/5l40k2.jpg',
+'https://files.catbox.moe/jg380e.jpg',
+'https://files.catbox.moe/ovdrkb.jpg',
 ].getRandom()
 
 global.rcanal = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, serverMessageId: 100, newsletterName: channelRD.name, }, externalAdReply: { showAdAttribution: true, title: textbot, body: 'sumi-Bot_MD', mediaUrl: null, description: null, previewType: "PHOTO", thumbnailUrl: icono, sourceUrl: redes, mediaType: 1, renderLargerThumbnail: false }, }, }}
