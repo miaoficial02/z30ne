@@ -1,17 +1,27 @@
-import axios from 'axios'
+import fetch from 'node-fetch';
 
-let handler = async (m, { conn, text }) => {
-  if (!text) return m.reply('Ingresa un texto para generar un sticker')
+const handler = async (m, { conn, args }) => {
+  if (!args[0]) {
+    return m.reply('🚩 Por favor, proporciona un texto para generar el video.\n_Ejemplo: .bratvid Hola mundo_');
+  }
 
-  m.react('🕒️')
-  let url = `https://api.siputzx.my.id/api/m/brat?text=${text}&isVideo=false&delay=500`
-  let buffer = await axios.get(url, { responseType: 'arraybuffer' })
-  await conn.sendFile(m.chat, buffer.data, 'sticker.webp', '', m, true)
-  m.react('✅')
-}
+  const text = args.join(' ');
+  const apiUrl = `https://api.nekorinn.my.id/maker/bratvid?text=${encodeURIComponent(text)}`;
 
-handler.command = ['brat']
-handler.tags = ['sticker']
-handler.help = ['brat <texto>']
+  try {
+    m.reply('⏳ Generando tu video, por favor espera un momento...');
 
-export default handler
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`Error al generar el video: ${response.statusText}`);
+
+    const buffer = await response.buffer();
+
+    await conn.sendFile(m.chat, buffer, 'bratvid.mp4', `🎥 *Video generado para:* _${text}_`, m);
+  } catch (error) {
+    console.error('Error al generar el video:', error);
+    m.reply('🚩 Ocurrió un error al generar el video. Por favor, intenta nuevamente más tarde.');
+  }
+};
+
+handler.command = ['bratvid', 'vidbrat'];
+export default handler;
