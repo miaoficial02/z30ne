@@ -41,7 +41,7 @@ termux-setup-storage
 apt update && apt upgrade && pkg install -y git nodejs ffmpeg imagemagick yarn
 ```
 ```bash
-git clone https://github.com/Leoneloficial/sumi-zakurazawa.git && cd sumi-zakurazawa 
+git clone https://github.com/miaoficial02/Mitzuki-AI && cd Mitzuki-AI 
 ```
 ```bash
 yarn install && npm update && npm i
@@ -54,7 +54,7 @@ npm start
 ```bash
 ESCRIBE LOS SIGUIENTES COMANDOS UNO POR UNO:
 > cd 
-> cd Sumi
+> cd Mitzuki-AI
 > npm start
 ```
 
